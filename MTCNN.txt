@@ -1,0 +1,6 @@
+﻿MTCNN (Multi task cascaded Convolutional Neural Networks)
+มีอยู่ 3 ขั้นตอน ก่อนจะเริ่มขั้นตอนแรกจะมีการ Resize ภาพในรูปแบบพีระมิดก่อนแล้วค่อยไปขั้นตอนที่ 1
+1.จากนั้นจะใช้สิ่งที่เรียกว่า Proposal Network (P-Net) เพื่อให้ได้ขอบเขตของใบหน้า
+2.หลังจากผ่าน P-Net ภาพก็จะถูกส่งไปยัง Refine Network (R-Net) ซึ่งจะตัดส่วนที่ไม่ใช่ใบหน้าออก แล้วทำ NMS
+ (non-maximum suppression) 
+3.ในขั้นตอนนี้ Output Network (O-Net) จะแสดงผลลัพธ์สุดท้ายและตำแหน่งสำคัญบนใบหน้า (มี 5 จุด)
