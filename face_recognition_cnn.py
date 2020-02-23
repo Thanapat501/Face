@@ -28,7 +28,7 @@ def predict(X_img_path, knn_clf=None, model_path=None, distance_threshold=0.6):
             knn_clf = pickle.load(f)
     # โหลดภาพจาก path
     X_img = face_recognition.load_image_file(X_img_path)
-    X_face_locations = face_recognition.face_locations(X_img)
+    X_face_locations = face_recognition.face_locations(X_img,model='cnn')
     # If no faces are found in the image, return an empty result.
     # เช็คว่ามีใบหย้าในรูปหรือไม่
     if len(X_face_locations) == 0:
@@ -46,7 +46,10 @@ def predict(X_img_path, knn_clf=None, model_path=None, distance_threshold=0.6):
 
     # print(closest_distances)
     are_matches = [closest_distances[0][i][0] <= distance_threshold for i in range(len(X_face_locations))]
+    # print(are_matches)
     # Predict classes and remove classifications that aren't within the threshold
+    # print(knn_clf.predict(faces_encodings))
+    # print(X_face_locations)
     return [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in zip(knn_clf.predict(faces_encodings), X_face_locations, are_matches)]
 
 def show_prediction_labels_on_image(img_path, predictions):
